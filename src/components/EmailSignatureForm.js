@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './EmailSignatureForm.css';
-
-const TEMPLATE_COLOR_DEFAULTS = {
-  modern: { borderColor: '#667eea', backgroundColor: '#f8f9fa' },
-  creative: { borderColor: '#ff6b6b', backgroundColor: '#fff5e6' },
-};
 
 function EmailSignatureForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -13,22 +8,8 @@ function EmailSignatureForm({ onSubmit }) {
     email: '',
     phone: '',
     website: '',
-    template: 'classic',
-    borderColor: '#667eea',
-    backgroundColor: '#f8f9fa',
+    template: 'classic'
   });
-
-  // Reset colors to template defaults when template changes
-  useEffect(() => {
-    const defaults = TEMPLATE_COLOR_DEFAULTS[formData.template];
-    if (defaults) {
-      setFormData(prev => ({
-        ...prev,
-        borderColor: defaults.borderColor,
-        backgroundColor: defaults.backgroundColor,
-      }));
-    }
-  }, [formData.template]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -161,40 +142,6 @@ function EmailSignatureForm({ onSubmit }) {
           </label>
         </div>
       </div>
-
-      {(formData.template === 'modern' || formData.template === 'creative') && (
-        <div className="form-group color-pickers-group">
-          <label>Customize Colors</label>
-          <div className="color-pickers">
-            <div className="color-picker-item">
-              <label htmlFor="borderColor">{formData.template === 'modern' ? 'Border Color' : 'Accent Color'}</label>
-              <div className="color-input-wrapper">
-                <input
-                  type="color"
-                  id="borderColor"
-                  name="borderColor"
-                  value={formData.borderColor}
-                  onChange={handleChange}
-                />
-                <span className="color-value">{formData.borderColor}</span>
-              </div>
-            </div>
-            <div className="color-picker-item">
-              <label htmlFor="backgroundColor">Background Color</label>
-              <div className="color-input-wrapper">
-                <input
-                  type="color"
-                  id="backgroundColor"
-                  name="backgroundColor"
-                  value={formData.backgroundColor}
-                  onChange={handleChange}
-                />
-                <span className="color-value">{formData.backgroundColor}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <button type="submit" className="submit-btn">
         Generate Signature

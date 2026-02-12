@@ -2,10 +2,12 @@ import React from 'react';
 import './ModernTemplate.css';
 
 function ModernTemplate({ data }) {
-  const { name, profession, email, phone, website, borderColor = '#667eea', backgroundColor = '#f8f9fa' } = data;
+  const { name, profession, email, phone, website, borderColor = '#667eea', backgroundColor = '#f8f9fa', textColor = '#1a1a1a' } = data;
+
+  const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.55)' : '#7f8c8d';
 
   const linkStyle = {
-    color: '#2c3e50',
+    color: textColor,
     textDecoration: 'none',
     fontSize: '12px'
   };
@@ -14,7 +16,7 @@ function ModernTemplate({ data }) {
     <table cellPadding="0" cellSpacing="0" border="0" style={{
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       fontSize: '14px',
-      color: '#2c3e50',
+      color: textColor,
       lineHeight: '1.6',
       width: '100%',
       maxWidth: '400px',
@@ -41,7 +43,7 @@ function ModernTemplate({ data }) {
                     </div>
                     <div style={{
                       fontSize: '13px',
-                      color: '#7f8c8d',
+                      color: secondaryTextColor,
                       fontWeight: '500',
                       textTransform: 'uppercase',
                       letterSpacing: '1px'

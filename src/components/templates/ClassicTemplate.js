@@ -2,10 +2,13 @@ import React from 'react';
 import './ClassicTemplate.css';
 
 function ClassicTemplate({ data }) {
-  const { name, profession, email, phone, website } = data;
+  const { name, profession, email, phone, website, borderColor = '#1a1a1a', backgroundColor = '#ffffff', textColor = '#1a1a1a' } = data;
+
+  // Derive a muted text color for secondary elements
+  const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.65)' : '#666666';
 
   const linkStyle = {
-    color: '#1a1a1a',
+    color: textColor,
     textDecoration: 'none',
     fontSize: '12px'
   };
@@ -14,11 +17,11 @@ function ClassicTemplate({ data }) {
     <table cellPadding="0" cellSpacing="0" border="0" style={{
       fontFamily: 'Arial, sans-serif',
       fontSize: '14px',
-      color: '#333333',
+      color: textColor,
       lineHeight: '1.6',
       width: '100%',
       maxWidth: '400px',
-      backgroundColor: '#ffffff',
+      backgroundColor: backgroundColor,
       border: '1px solid #e0e0e0',
       borderRadius: '8px',
     }}>
@@ -29,7 +32,7 @@ function ClassicTemplate({ data }) {
             <div style={{
               fontSize: '16px',
               fontWeight: 'bold',
-              color: '#1a1a1a',
+              color: textColor,
               marginBottom: '2px'
             }}>
               {name}
@@ -38,7 +41,7 @@ function ClassicTemplate({ data }) {
             {/* Profession */}
             <div style={{
               fontSize: '13px',
-              color: '#666666',
+              color: secondaryTextColor,
               marginBottom: '8px'
             }}>
               {profession}
@@ -46,7 +49,7 @@ function ClassicTemplate({ data }) {
 
             {/* Divider */}
             <div style={{
-              borderTop: '2px solid #1a1a1a',
+              borderTop: `2px solid ${borderColor}`,
               margin: '8px 0',
               width: '60px',
               height: '0px' // Explicit height for outlook

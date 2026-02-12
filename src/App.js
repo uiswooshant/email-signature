@@ -1,12 +1,57 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './App.css';
 import EmailSignatureForm from './components/EmailSignatureForm';
 import EmailSignature from './components/EmailSignature';
 
+const TEMPLATE_COLOR_DEFAULTS = {
+  classic: { borderColor: '#1a1a1a', backgroundColor: '#ffffff' },
+  modern: { borderColor: '#667eea', backgroundColor: '#f8f9fa' },
+  creative: { borderColor: '#ff6b6b', backgroundColor: '#fff5e6' },
+};
+
+// Compute contrasting text color based on background luminance
+function getContrastColor(hexColor) {
+  const hex = hexColor.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16) / 255;
+  const g = parseInt(hex.substring(2, 4), 16) / 255;
+  const b = parseInt(hex.substring(4, 6), 16) / 255;
+
+  // sRGB to linear
+  const toLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  const luminance = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+
+  return luminance > 0.179 ? '#1a1a1a' : '#ffffff';
+}
+
+const BORDER_COLOR_LABELS = {
+  classic: 'Divider Color',
+  modern: 'Border Color',
+  creative: 'Accent Color',
+};
+
 function App() {
   const [signatureData, setSignatureData] = useState(null);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [borderColor, setBorderColor] = useState('#1a1a1a');
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
   const signatureRef = useRef(null);
+  const prevTemplateRef = useRef(null);
+
+  // Reset colors when template changes
+  const resetColorsForTemplate = useCallback((template) => {
+    const defaults = TEMPLATE_COLOR_DEFAULTS[template];
+    if (defaults) {
+      setBorderColor(defaults.borderColor);
+      setBackgroundColor(defaults.backgroundColor);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (signatureData && signatureData.template !== prevTemplateRef.current) {
+      prevTemplateRef.current = signatureData.template;
+      resetColorsForTemplate(signatureData.template);
+    }
+  }, [signatureData, resetColorsForTemplate]);
 
   const handleFormSubmit = (data) => {
     setSignatureData(data);
@@ -130,8 +175,41 @@ function App() {
               </div>
             </div>
             <div ref={signatureRef}>
-              <EmailSignature data={signatureData} />
+              <EmailSignature data={{ ...signatureData, borderColor, backgroundColor, textColor: getContrastColor(backgroundColor) }} />
             </div>
+
+            <div className="color-pickers-group">
+              <h3 className="color-pickers-title">Customize Colors</h3>
+              <div className="color-pickers">
+                <div className="color-picker-item">
+                  <label htmlFor="borderColor">{BORDER_COLOR_LABELS[signatureData.template] || 'Border Color'}</label>
+                  <div className="color-input-wrapper">
+                    <input
+                      type="color"
+                      id="borderColor"
+                      name="borderColor"
+                      value={borderColor}
+                      onChange={(e) => setBorderColor(e.target.value)}
+                    />
+                    <span className="color-value">{borderColor}</span>
+                  </div>
+                </div>
+                <div className="color-picker-item">
+                  <label htmlFor="backgroundColor">Background Color</label>
+                  <div className="color-input-wrapper">
+                    <input
+                      type="color"
+                      id="backgroundColor"
+                      name="backgroundColor"
+                      value={backgroundColor}
+                      onChange={(e) => setBackgroundColor(e.target.value)}
+                    />
+                    <span className="color-value">{backgroundColor}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="copy-instructions">
               <p>To use this signature:</p>
               <ol>

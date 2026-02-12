@@ -2,11 +2,14 @@ import React from 'react';
 import './CreativeTemplate.css';
 
 function CreativeTemplate({ data }) {
-  const { name, profession, email, phone, website, borderColor = '#ff6b6b', backgroundColor = '#fff5e6' } = data;
+  const { name, profession, email, phone, website, borderColor = '#ff6b6b', backgroundColor = '#fff5e6', textColor = '#1a1a1a' } = data;
+
+  const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.6)' : '#636e72';
+  const dividerColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.25)' : '#b2bec3';
 
   // Helper for cleaner code
   const linkStyle = {
-    color: '#2d3436',
+    color: textColor,
     textDecoration: 'none',
     fontWeight: '500',
     fontSize: '13px'
@@ -16,7 +19,7 @@ function CreativeTemplate({ data }) {
     <table cellPadding="0" cellSpacing="0" border="0" style={{
       fontFamily: "'Georgia', 'Times New Roman', serif",
       fontSize: '14px',
-      color: '#2d3436',
+      color: textColor,
       lineHeight: '1.6',
       width: '100%',
       maxWidth: '450px',
@@ -44,7 +47,7 @@ function CreativeTemplate({ data }) {
             <div style={{
               fontSize: '22px',
               fontWeight: '700',
-              color: '#2d3436',
+              color: textColor,
               marginBottom: '4px',
               letterSpacing: '0.5px'
             }}>
@@ -54,10 +57,10 @@ function CreativeTemplate({ data }) {
             {/* Profession */}
             <div style={{
               fontSize: '13px',
-              color: '#636e72',
+              color: secondaryTextColor,
               marginBottom: '16px',
               fontWeight: '500',
-              borderBottom: '2px dotted #b2bec3', // Hex color is safer than rgba
+              borderBottom: `2px dotted ${dividerColor}`,
               paddingBottom: '12px',
               display: 'block' // Ensures block behavior
             }}>
