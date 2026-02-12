@@ -1,11 +1,21 @@
 import React from 'react';
 import './CreativeTemplate.css';
+import { useRecoloredIcons } from '../../hooks/useRecoloredIcons';
+
+const ICON_SOURCES = {
+  email: '/icons/email.png',
+  phone: '/icons/phone.png',
+  website: '/icons/website.png',
+};
 
 function CreativeTemplate({ data }) {
   const { name, profession, email, phone, website, borderColor = '#ff6b6b', backgroundColor = '#fff5e6', textColor = '#1a1a1a' } = data;
 
   const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.6)' : '#636e72';
   const dividerColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.25)' : '#b2bec3';
+
+  // Recolor icons to match accent/border color
+  const icons = useRecoloredIcons(ICON_SOURCES, borderColor);
 
   // Helper for cleaner code
   const linkStyle = {
@@ -73,7 +83,7 @@ function CreativeTemplate({ data }) {
                 <tr>
                   <td width="28" valign="middle" style={{ paddingBottom: '8px' }}>
                     <img
-                      src="/icons/email.png"
+                      src={icons.email}
                       alt="Email"
                       style={{
                         width: '20px',
@@ -89,7 +99,7 @@ function CreativeTemplate({ data }) {
                 <tr>
                   <td width="28" valign="middle" style={{ paddingBottom: '8px' }}>
                     <img
-                      src="/icons/phone.png"
+                      src={icons.phone}
                       alt="Phone"
                       style={{
                         width: '20px',
@@ -106,7 +116,7 @@ function CreativeTemplate({ data }) {
                   <tr>
                     <td width="28" valign="middle" style={{ paddingBottom: '8px' }}>
                       <img
-                        src="/icons/website.png"
+                        src={icons.website}
                         alt="Website"
                         style={{
                           width: '20px',
