@@ -14,6 +14,10 @@ function recolorIcon(iconSrc, color) {
             canvas.width = img.width;
             canvas.height = img.height;
             const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                reject(new Error(`Failed to get canvas context for icon: ${iconSrc}`));
+                return;
+            }
 
             // Draw original icon
             ctx.drawImage(img, 0, 0);
@@ -43,7 +47,7 @@ export function useRecoloredIcons(iconSources, color) {
         let cancelled = false;
 
         async function recolorAll() {
-            const entries = Object.entries(iconSources);
+            const entries = Object.entries(iconSources || {});
             const results = await Promise.all(
                 entries.map(async ([key, src]) => {
                     try {
