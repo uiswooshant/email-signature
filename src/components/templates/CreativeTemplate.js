@@ -1,5 +1,6 @@
 import React from 'react';
 import './CreativeTemplate.css';
+import { normalizeWebsiteUrl, formatWebsiteDisplay } from '../../utils/contact';
 import { useRecoloredIcons } from '../../hooks/useRecoloredIcons';
 import SocialLinks from '../SocialLinks';
 import { getSocialLinks } from '../../utils/socialLinks';
@@ -21,6 +22,9 @@ function CreativeTemplate({ data }) {
   const icons = useRecoloredIcons(ICON_SOURCES, borderColor);
 
   // Helper for cleaner code
+  const websiteUrl = normalizeWebsiteUrl(website);
+  const websiteDisplay = formatWebsiteDisplay(website);
+
   const linkStyle = {
     color: textColor,
     textDecoration: 'none',
@@ -115,7 +119,7 @@ function CreativeTemplate({ data }) {
                     <a href={`tel:${phone}`} style={linkStyle}>{phone}</a>
                   </td>
                 </tr>
-                {website && (
+                {websiteUrl && (
                   <tr>
                     <td width="28" valign="middle" style={{ paddingBottom: '8px' }}>
                       <img
@@ -130,12 +134,12 @@ function CreativeTemplate({ data }) {
                     </td>
                     <td valign="middle" style={{ paddingBottom: '8px' }}>
                       <a
-                        href={website.startsWith('http') ? website : `https://${website}`}
+                        href={websiteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={linkStyle}
                       >
-                        {website.replace(/^https?:\/\//, '')}
+                        {websiteDisplay}
                       </a>
                     </td>
                   </tr>

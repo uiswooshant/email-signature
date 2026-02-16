@@ -2,12 +2,16 @@ import React from 'react';
 import './ModernTemplate.css';
 import SocialLinks from '../SocialLinks';
 import { getSocialLinks } from '../../utils/socialLinks';
+import { normalizeWebsiteUrl, formatWebsiteDisplay } from '../../utils/contact';
 
 function ModernTemplate({ data }) {
   const { name, profession, email, phone, website, borderColor = '#667eea', backgroundColor = '#f8f9fa', textColor = '#1a1a1a' } = data;
 
   const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.55)' : '#7f8c8d';
   const socialLinks = getSocialLinks(data);
+
+  const websiteUrl = normalizeWebsiteUrl(website);
+  const websiteDisplay = formatWebsiteDisplay(website);
 
   const linkStyle = {
     color: textColor,
@@ -69,16 +73,16 @@ function ModernTemplate({ data }) {
                     <a href={`tel:${phone}`} style={linkStyle}>{phone}</a>
                   </td>
                 </tr>
-                {website && (
+                {websiteUrl && (
                   <tr>
                     <td style={{ paddingBottom: '6px' }}>
                       <a
-                        href={website.startsWith('http') ? website : `https://${website}`}
+                        href={websiteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={linkStyle}
                       >
-                        {website.replace(/^https?:\/\//, '')}
+                        {websiteDisplay}
                       </a>
                     </td>
                   </tr>

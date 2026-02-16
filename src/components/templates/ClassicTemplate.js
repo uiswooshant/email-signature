@@ -2,6 +2,7 @@ import React from 'react';
 import './ClassicTemplate.css';
 import SocialLinks from '../SocialLinks';
 import { getSocialLinks } from '../../utils/socialLinks';
+import { normalizeWebsiteUrl, formatWebsiteDisplay } from '../../utils/contact';
 
 function ClassicTemplate({ data }) {
   const { name, profession, email, phone, website, borderColor = '#1a1a1a', backgroundColor = '#ffffff', textColor = '#1a1a1a' } = data;
@@ -9,6 +10,9 @@ function ClassicTemplate({ data }) {
   // Derive a muted text color for secondary elements
   const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.65)' : '#666666';
   const socialLinks = getSocialLinks(data);
+
+  const websiteUrl = normalizeWebsiteUrl(website);
+  const websiteDisplay = formatWebsiteDisplay(website);
 
   const linkStyle = {
     color: textColor,
@@ -67,16 +71,16 @@ function ClassicTemplate({ data }) {
                     <a href={`tel:${phone}`} style={linkStyle}>{phone}</a>
                   </td>
                 </tr>
-                {website && (
+                {websiteUrl && (
                   <tr>
                     <td style={{ paddingBottom: '4px' }}>
                       <a
-                        href={website.startsWith('http') ? website : `https://${website}`}
+                        href={websiteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={linkStyle}
                       >
-                        {website.replace(/^https?:\/\//, '')}
+                        {websiteDisplay}
                       </a>
                     </td>
                   </tr>
