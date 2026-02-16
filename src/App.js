@@ -93,10 +93,13 @@ function App() {
   const fallbackCopy = () => {
     if (!signatureRef.current) return;
 
+    const selection = window.getSelection();
+    if (!selection) return;
+
     const range = document.createRange();
     range.selectNode(signatureRef.current);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
+    selection.removeAllRanges();
+    selection.addRange(range);
 
     try {
       document.execCommand('copy');
@@ -108,7 +111,7 @@ function App() {
       console.error('Fallback copy failed:', err);
     }
 
-    window.getSelection().removeAllRanges();
+    selection.removeAllRanges();
   };
 
   const handleDownloadHTML = () => {
