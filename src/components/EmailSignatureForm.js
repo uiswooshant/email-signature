@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './EmailSignatureForm.css';
+import { SOCIAL_PLATFORMS } from '../utils/socialLinks';
 
 function EmailSignatureForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -8,6 +9,11 @@ function EmailSignatureForm({ onSubmit }) {
     email: '',
     phone: '',
     website: '',
+    linkedin: '',
+    twitter: '',
+    instagram: '',
+    facebook: '',
+    github: '',
     template: 'classic'
   });
 
@@ -93,6 +99,25 @@ function EmailSignatureForm({ onSubmit }) {
           value={formData.website}
           onChange={handleChange}
         />
+      </div>
+
+      <div className="form-group">
+        <label>Social Media Links</label>
+        <div className="social-inputs-grid">
+          {SOCIAL_PLATFORMS.map((platform) => (
+            <div className="social-field" key={platform.key}>
+              <label htmlFor={platform.key}>{platform.label}</label>
+              <input
+                type="text"
+                id={platform.key}
+                name={platform.key}
+                value={formData[platform.key]}
+                onChange={handleChange}
+                placeholder={platform.placeholder}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="form-group">

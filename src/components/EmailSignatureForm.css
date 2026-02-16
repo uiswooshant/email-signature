@@ -33,6 +33,17 @@
   font-size: 0.95rem;
 }
 
+.social-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.social-field label {
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
 .form-group input {
   width: 100%;
   padding: 0.75rem;
@@ -56,6 +67,10 @@
   .form-group input {
     padding: 0.65rem;
     font-size: 0.95rem;
+  }
+
+  .social-inputs-grid {
+    grid-template-columns: 1fr;
   }
 }
 
