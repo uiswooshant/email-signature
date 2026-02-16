@@ -1,10 +1,13 @@
 import React from 'react';
 import './ModernTemplate.css';
+import SocialLinks from '../SocialLinks';
+import { getSocialLinks } from '../../utils/socialLinks';
 
 function ModernTemplate({ data }) {
   const { name, profession, email, phone, website, borderColor = '#667eea', backgroundColor = '#f8f9fa', textColor = '#1a1a1a' } = data;
 
   const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.55)' : '#7f8c8d';
+  const socialLinks = getSocialLinks(data);
 
   const linkStyle = {
     color: textColor,
@@ -22,12 +25,11 @@ function ModernTemplate({ data }) {
       maxWidth: '400px',
       backgroundColor: backgroundColor,
       borderLeft: `4px solid ${borderColor}`,
-      borderRadius: '4px', // simplified radius for tables
+      borderRadius: '4px',
     }}>
       <tbody>
         <tr>
           <td style={{ padding: '24px' }}>
-            {/* Header Section */}
             <table cellPadding="0" cellSpacing="0" border="0" width="100%" style={{ borderBottom: '1px solid #e0e0e0', marginBottom: '16px' }}>
               <tbody>
                 <tr>
@@ -55,7 +57,6 @@ function ModernTemplate({ data }) {
               </tbody>
             </table>
 
-            {/* Contact Section */}
             <table cellPadding="0" cellSpacing="0" border="0" width="100%">
               <tbody>
                 <tr>
@@ -84,6 +85,8 @@ function ModernTemplate({ data }) {
                 )}
               </tbody>
             </table>
+
+            <SocialLinks links={socialLinks} iconColor={borderColor} />
           </td>
         </tr>
       </tbody>

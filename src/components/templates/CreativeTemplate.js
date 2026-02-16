@@ -1,6 +1,8 @@
 import React from 'react';
 import './CreativeTemplate.css';
 import { useRecoloredIcons } from '../../hooks/useRecoloredIcons';
+import SocialLinks from '../SocialLinks';
+import { getSocialLinks } from '../../utils/socialLinks';
 
 const ICON_SOURCES = {
   email: '/icons/email.png',
@@ -13,6 +15,7 @@ function CreativeTemplate({ data }) {
 
   const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.6)' : '#636e72';
   const dividerColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.25)' : '#b2bec3';
+  const socialLinks = getSocialLinks(data);
 
   // Recolor icons to match accent/border color
   const icons = useRecoloredIcons(ICON_SOURCES, borderColor);
@@ -139,6 +142,8 @@ function CreativeTemplate({ data }) {
                 )}
               </tbody>
             </table>
+
+            <SocialLinks links={socialLinks} iconColor={borderColor} />
           </td>
         </tr>
       </tbody>

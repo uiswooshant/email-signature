@@ -1,11 +1,14 @@
 import React from 'react';
 import './ClassicTemplate.css';
+import SocialLinks from '../SocialLinks';
+import { getSocialLinks } from '../../utils/socialLinks';
 
 function ClassicTemplate({ data }) {
   const { name, profession, email, phone, website, borderColor = '#1a1a1a', backgroundColor = '#ffffff', textColor = '#1a1a1a' } = data;
 
   // Derive a muted text color for secondary elements
   const secondaryTextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.65)' : '#666666';
+  const socialLinks = getSocialLinks(data);
 
   const linkStyle = {
     color: textColor,
@@ -28,7 +31,6 @@ function ClassicTemplate({ data }) {
       <tbody>
         <tr>
           <td style={{ padding: '24px' }}>
-            {/* Name */}
             <div style={{
               fontSize: '16px',
               fontWeight: 'bold',
@@ -38,7 +40,6 @@ function ClassicTemplate({ data }) {
               {name}
             </div>
 
-            {/* Profession */}
             <div style={{
               fontSize: '13px',
               color: secondaryTextColor,
@@ -47,15 +48,13 @@ function ClassicTemplate({ data }) {
               {profession}
             </div>
 
-            {/* Divider */}
             <div style={{
               borderTop: `2px solid ${borderColor}`,
               margin: '8px 0',
               width: '60px',
-              height: '0px' // Explicit height for outlook
+              height: '0px'
             }}></div>
 
-            {/* Contact Info */}
             <table cellPadding="0" cellSpacing="0" border="0" width="100%" style={{ marginTop: '8px' }}>
               <tbody>
                 <tr>
@@ -84,6 +83,8 @@ function ClassicTemplate({ data }) {
                 )}
               </tbody>
             </table>
+
+            <SocialLinks links={socialLinks} iconColor={borderColor} />
           </td>
         </tr>
       </tbody>
