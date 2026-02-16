@@ -29,12 +29,11 @@ function ClassicTemplate({ data }) {
       width: '100%',
       maxWidth: '400px',
       backgroundColor: backgroundColor,
-      border: '1px solid #e0e0e0',
       borderRadius: '8px',
     }}>
       <tbody>
         <tr>
-          <td style={{ padding: '24px' }}>
+          <td style={{ }}>
             <div style={{
               fontSize: '16px',
               fontWeight: 'bold',
