@@ -7,11 +7,11 @@ export const SOCIAL_PLATFORMS = [
 ];
 
 export const SOCIAL_ICON_SOURCES = {
-  linkedin: '/icons/linkedin.png',
-  twitter: '/icons/x.png',
-  instagram: '/icons/instagram.png',
-  facebook: '/icons/facebook.png',
-  github: '/icons/github.png',
+  linkedin: `${process.env.PUBLIC_URL}/icons/linkedin.png`,
+  twitter: `${process.env.PUBLIC_URL}/icons/x.png`,
+  instagram: `${process.env.PUBLIC_URL}/icons/instagram.png`,
+  facebook: `${process.env.PUBLIC_URL}/icons/facebook.png`,
+  github: `${process.env.PUBLIC_URL}/icons/github.png`,
 };
 
 export function normalizeUrl(url = '') {

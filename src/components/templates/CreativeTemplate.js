@@ -6,9 +6,9 @@ import SocialLinks from '../SocialLinks';
 import { getSocialLinks } from '../../utils/socialLinks';
 
 const ICON_SOURCES = {
-  email: '/icons/email.png',
-  phone: '/icons/phone.png',
-  website: '/icons/website.png',
+  email: `${process.env.PUBLIC_URL}/icons/email.png`,
+  phone: `${process.env.PUBLIC_URL}/icons/phone.png`,
+  website: `${process.env.PUBLIC_URL}/icons/website.png`,
 };
 
 function CreativeTemplate({ data }) {
